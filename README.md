@@ -23,3 +23,4 @@
 
 ## SQL
 
+https://github.com/hcheu386/data-2721-A2/blob/c16d1fe0d9e71e0ab325b3f33c72e90a234b5347/rentals.sql#L6-L79
