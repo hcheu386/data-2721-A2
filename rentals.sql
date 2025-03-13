@@ -77,3 +77,20 @@ create table tenant (
     foreign key (building, apartment, start_date) references lease(building, apartment, start_date),
     foreign key (tenant) references person(id)
 );
+
+
+/* Task 3 */
+/* 1 */
+
+/* 2 */
+
+/* 3 */
+
+/* 4 */
+
+/* 5 */
+
+/* 6 */
+
+/* 7 */
+
