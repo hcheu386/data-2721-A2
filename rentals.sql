@@ -39,8 +39,8 @@ create table building (
 
 create table apartment (
     building int,
-    num char(3),
-    type char(4),
+    num varchar(4),
+    type varchar(30),
     description varchar(1000),
     primary key (building, num),
     foreign key (building) references building(id)
@@ -48,10 +48,14 @@ create table apartment (
 
 create table lease_type (
     id tinyint auto_increment,
-    name varchar(30) check (name in ("fixed term", "short term")),
-    days_per_term tinyint not null,
+    name varchar(30) not null,
+    days_per_term smallint not null,
     primary key (id)
 );
+insert into lease_type (name, days_per_term) values
+('long term', 365),
+('fixed term', 30),
+('short term', 1);
 
 create table lease (
     building int,
@@ -60,12 +64,35 @@ create table lease (
     lease_type tinyint not null,
     minimum_term smallint not null,
     rent_per_term int not null,
-    -- impossible?
-    -- end_date date as adddate(start_date, minimum_term * lease_type(lease_type));
     primary key (building, apartment, start_date),
     foreign key (building, apartment) references apartment(building, num),
     foreign key (lease_type) references lease_type(id)
 );
+
+delimiter $
+create trigger date_overlap before insert on lease for each row
+begin
+    declare days int;
+    declare new_start date;
+    declare new_end date;
+    declare collisions int;
+
+    select days_per_term into days from lease_type where new.lease_type = id;
+    set new_start = new.start_date;
+    set new_end = date_add(new.start_date, interval new.minimum_term * days day);
+
+    select count(*) into collisions from lease l, lease_type t
+    where l.lease_type = t.id
+    and l.building = new.building
+    and l.apartment = new.apartment
+    and ((new_start = l.start_date and new_start <= date_add(l.start_date, interval l.minimum_term * t.days_per_term day))
+    or (new_end = l.start_date and new_end <= date_add(l.start_date, interval l.minimum_term * t.days_per_term day)));
+
+    if collisions > 0 then
+        signal sqlstate value '23000' set message_text = 'The input date overlaps with existing dates.';
+    end if;
+end $
+delimiter ;
 
 create table tenant (
     building int,
@@ -77,20 +104,3 @@ create table tenant (
     foreign key (building, apartment, start_date) references lease(building, apartment, start_date),
     foreign key (tenant) references person(id)
 );
-
-
-/* Task 3 */
-/* 1 */
-
-/* 2 */
-
-/* 3 */
-
-/* 4 */
-
-/* 5 */
-
-/* 6 */
-
-/* 7 */
-
