@@ -3,6 +3,15 @@ create database rentals;
 use rentals;
 
 
+
+create function date_overlap (start_1 date, end_1 date, start_2 date, end_2 date)
+returns bool
+deterministic
+return
+    (start_1 >= start_2 and start_1 <= end_2)
+    or (end_1 >= start_2 and end_1 <= end_2);
+
+
 create table person (
     id int auto_increment,
     first_name varchar(30),
@@ -59,7 +68,7 @@ insert into lease_type (name, days_per_term) values
 
 create table lease (
     building int,
-    apartment char(3),
+    apartment varchar(4),
     start_date date,
     lease_type tinyint not null,
     minimum_term smallint not null,
@@ -69,34 +78,9 @@ create table lease (
     foreign key (lease_type) references lease_type(id)
 );
 
-delimiter $
-create trigger date_overlap before insert on lease for each row
-begin
-    declare days int;
-    declare new_start date;
-    declare new_end date;
-    declare collisions int;
-
-    select days_per_term into days from lease_type where new.lease_type = id;
-    set new_start = new.start_date;
-    set new_end = date_add(new.start_date, interval new.minimum_term * days day);
-
-    select count(*) into collisions from lease l, lease_type t
-    where l.lease_type = t.id
-    and l.building = new.building
-    and l.apartment = new.apartment
-    and ((new_start = l.start_date and new_start <= date_add(l.start_date, interval l.minimum_term * t.days_per_term day))
-    or (new_end = l.start_date and new_end <= date_add(l.start_date, interval l.minimum_term * t.days_per_term day)));
-
-    if collisions > 0 then
-        signal sqlstate value '23000' set message_text = 'The input date overlaps with existing dates.';
-    end if;
-end $
-delimiter ;
-
 create table tenant (
     building int,
-    apartment char(3),
+    apartment varchar(4),
     start_date date,
     ord tinyint,
     tenant int not null,
@@ -104,3 +88,28 @@ create table tenant (
     foreign key (building, apartment, start_date) references lease(building, apartment, start_date),
     foreign key (tenant) references person(id)
 );
+
+
+delimiter $
+create trigger date_overlap before insert on lease for each row
+begin
+    declare days int;
+    declare new_start date;
+    declare new_end date;
+
+    select days_per_term into days from lease_type where new.lease_type = id;
+    set new_start = new.start_date;
+    set new_end = date_add(new.start_date, interval new.minimum_term * days day);
+
+    if exists (
+        select true from lease l, lease_type t
+        where l.lease_type = t.id
+        and l.building = new.building
+        and l.apartment = new.apartment
+        and date_overlap(new_start, new_end, l.start_date, date_add(l.start_date, interval l.minimum_term * t.days_per_term day))
+        limit 1
+    ) then
+        signal sqlstate value '23000' set message_text = 'The date of the input lease overlaps with existing lease(s) of the same apartment.';
+    end if;
+end $
+delimiter ;
