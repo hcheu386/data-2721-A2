@@ -104,7 +104,7 @@ begin
         and l.apartment = new.apartment
         and date_overlap(
             new.start_date,
-            date_add(new.start_date, interval new.minimum_term * days day);,
+            date_add(new.start_date, interval new.minimum_term * days day),
             l.start_date,
             date_add(l.start_date, interval l.minimum_term * t.days_per_term day)
         ) limit 1
