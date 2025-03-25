@@ -23,4 +23,20 @@
 
 ## SQL
 
-https://github.com/hcheu386/data-2721-A2/blob/c2a6c7a1ef0a86139f7b75f09500cbfe8cec5bb9/rentals.sql#L15-L115
+https://github.com/hcheu386/data-2721-A2/blob/9262a428cb8b317a0ee42af61f9bafba4be33b54/rentals.sql#L18-L118
+
+The negative test for the trigger:
+
+https://github.com/hcheu386/data-2721-A2/blob/9262a428cb8b317a0ee42af61f9bafba4be33b54/rentals.sql#L289-L291
+
+# Task 2
+
+https://github.com/hcheu386/data-2721-A2/blob/9262a428cb8b317a0ee42af61f9bafba4be33b54/rentals.sql#L121-L190
+
+# Task 3
+
+https://github.com/hcheu386/data-2721-A2/blob/9262a428cb8b317a0ee42af61f9bafba4be33b54/rentals.sql#L193-L287
+
+# Output
+
+https://github.com/hcheu386/data-2721-A2/blob/9262a428cb8b317a0ee42af61f9bafba4be33b54/output#L1-L136
