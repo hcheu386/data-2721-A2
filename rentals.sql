@@ -115,6 +115,80 @@ end $
 delimiter ;
 
 
+-- Task 2
+INSERT INTO person (first_name, middle_name, last_name, phone, email_local, email_domain) VALUES
+('John', 'A.', 'Doe', 4034567890, 'john_doe', 'hotmail.com'),
+('Jane', 'B.', 'Smith', 5875678901, 'janes123', 'gmail.com'),
+('Alice', NULL, 'Johnson', 4036789012, 'alice.johnson', 'yahoo.com'),
+('Bob', 'C.', 'Brown', 4037890123, 'bob.brown23', 'gmail.com'),
+('Charlie', NULL, 'Davis', 5878901234, 'charlie_davis', 'hotmail.com'),
+('Eva', 'D.', 'Wilson', 5879012345, 'eva.w75', 'hotmail.com'),
+('Frank', NULL, 'Moore', 4030123456, 'frank_moore', 'yahoo.com'),
+('Grace', 'E.', 'Taylor', 5871234567, 'grace.taylor', 'gmail.com'),
+('Henry', NULL, 'Anderson', 4032345678, 'henry.anderson1', 'hotmail.com'),
+('Ivy', 'F.', 'Thomas', 4034567890, 'ivy.thomas3', 'hotmail.com');
+
+INSERT INTO building (manager, addr, name, description) VALUES
+(1, '2120 Southland Dr, Calgary, AB', 'Glenmore Estates', 'A luxurious high-rise building in downtown Calgary.'),
+(2, '815 50 Ave, Calgary, AB', 'Britannia 800', 'A modern apartment complex with great amenities.'),
+(3, '789 Oak St, Calgary, AB', 'Oak Heights', 'A cozy building with a view of the mountains.'),
+(4, '2719 17 Avenue SW, Calgary, AB', 'The Wellington', 'A family-friendly building with a playground.'),
+(5, '202 Maple St, Calgary, AB', 'Maple Suites', 'A stylish building with a rooftop terrace.');
+
+INSERT INTO apartment (building, num, type, description) VALUES
+(1, '101', '1BHK', 'A cozy one-bedroom apartment with a balcony.'),
+(1, '102', '2BHK', 'A spacious two-bedroom apartment with a modern kitchen.'),
+(2, '201', '1BHK', 'A cozy one-bedroom apartment.'),
+(2, '202', '3BHK', 'A three-bedroom apartment with a study.'),
+(3, '301', '2BHK', 'A two-bedroom apartment with mountain views.'),
+(3, '302', '1BHK', 'A compact one-bedroom apartment.'),
+(4, '401', '3BHK', 'A large three-bedroom apartment.'),
+(4, '402', '2BHK', 'A two-bedroom apartment with a fireplace.'),
+(5, '501', '1BHK', 'A modern one-bedroom apartment.'),
+(5, '502', '2BHK', 'A two-bedroom apartment with a den.');
+
+INSERT INTO lease_type (name, days_per_term) VALUES
+('fixed term', 365),  -- Fixed-term lease (1 year)
+('short term', 30);   -- Short-term lease (1 month)
+
+INSERT INTO lease (building, apartment, start_date, lease_type, minimum_term, rent_per_term) VALUES
+(1, '101', '2025-01-01', 1, 12, 1500),  -- Fixed-term lease for apartment 101
+(1, '102', '2025-02-01', 2, 3, 2000),   -- Short-term lease for apartment 102
+(2, '201', '2025-03-01', 1, 12, 1200),  -- Fixed-term lease for apartment 201
+(2, '202', '2025-04-01', 2, 6, 2500),   -- Short-term lease for apartment 202
+(3, '301', '2025-05-01', 1, 12, 1800),  -- Fixed-term lease for apartment 301
+(3, '302', '2025-06-01', 2, 3, 1600),   -- Short-term lease for apartment 302
+(4, '401', '2025-07-01', 1, 12, 2200),  -- Fixed-term lease for apartment 401
+(4, '402', '2025-08-01', 2, 6, 2400),   -- Short-term lease for apartment 402
+(5, '501', '2025-09-01', 1, 12, 1300),  -- Fixed-term lease for apartment 501
+(5, '502', '2025-10-01', 2, 3, 1900);   -- Short-term lease for apartment 502
+
+INSERT INTO tenant (building, apartment, start_date, ord, tenant) VALUES
+(1, '101', '2025-01-01', 1, 1),  -- John Doe is the tenant for apartment 101
+(1, '102', '2025-02-01', 1, 3),  -- Alice Johnson is the tenant for apartment 102
+(2, '201', '2025-03-01', 1, 5),  -- Charlie Davis is the tenant for apartment 201
+(2, '202', '2025-04-01', 1, 7),  -- Frank Moore is the tenant for apartment 202
+(3, '301', '2025-05-01', 1, 9),  -- Henry Anderson is the tenant for apartment 301
+(3, '302', '2025-06-01', 1, 2),  -- Jane Smith is the tenant for apartment 302
+(4, '401', '2025-07-01', 1, 4),  -- Bob Brown is the tenant for apartment 401
+(4, '402', '2025-08-01', 1, 6),  -- Eva Wilson is the tenant for apartment 402
+(5, '501', '2025-09-01', 1, 8),  -- Grace Taylor is the tenant for apartment 501
+(5, '502', '2025-10-01', 1, 10); -- Ivy Thomas is the tenant for apartment 502
+
+
+INSERT INTO guarantor (id, ord, guarantor) VALUES
+(1, 1, 2),  -- Person 1 (John Doe) has Person 2 (Jane Smith) as their primary guarantor
+(1, 2, 3),  -- Person 1 (John Doe) has Person 3 (Alice Johnson) as their secondary guarantor
+(2, 1, 4),  -- Person 2 (Jane Smith) has Person 4 (Bob Brown) as their primary guarantor
+(3, 1, 5),  -- Person 3 (Alice Johnson) has Person 5 (Charlie Davis) as their primary guarantor
+(4, 1, 6),  -- Person 4 (Bob Brown) has Person 6 (Eva Wilson) as their primary guarantor
+(5, 1, 7),  -- Person 5 (Charlie Davis) has Person 7 (Frank Moore) as their primary guarantor
+(6, 1, 8),  -- Person 6 (Eva Wilson) has Person 8 (Grace Taylor) as their primary guarantor
+(7, 1, 9),  -- Person 7 (Frank Moore) has Person 9 (Henry Anderson) as their primary guarantor
+(8, 1, 10), -- Person 8 (Grace Taylor) has Person 10 (Ivy Thomas) as their primary guarantor
+(9, 1, 1);  -- Person 9 (Henry Anderson) has Person 1 (John Doe) as their primary guarantor
+
+
 -- Task 3
 -- Retrieve the details of all apartments in a specific building, sorted by apartment type.
 SELECT *
