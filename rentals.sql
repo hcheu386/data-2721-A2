@@ -237,12 +237,6 @@ GROUP BY p.id
 HAVING booking_count > 2;
 
 -- List all bookings that are currently active (ongoing based on the current date).
-SELECT l.*
-FROM lease l
-JOIN lease_type lt ON l.lease_type = lt.id
-WHERE l.start_date <= '2025-06-15'
-  AND DATE_ADD(l.start_date, INTERVAL l.minimum_term * lt.days_per_term DAY) >= '2025-06-15';
-
 select t.*
     from (
     select

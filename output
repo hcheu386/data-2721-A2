@@ -1,39 +1,35 @@
 
-Query OK, 7 rows affected (0.15 sec)
-
-Query OK, 1 row affected (0.01 sec)
-
 Database changed
 Query OK, 0 rows affected (0.01 sec)
 
-Query OK, 0 rows affected (0.00 sec)
-
-Query OK, 0 rows affected (0.05 sec)
-
-Query OK, 0 rows affected (0.05 sec)
-
-Query OK, 0 rows affected (0.05 sec)
+Query OK, 0 rows affected (0.01 sec)
 
 Query OK, 0 rows affected (0.04 sec)
 
-Query OK, 0 rows affected (0.04 sec)
+Query OK, 0 rows affected (0.05 sec)
 
-Query OK, 3 rows affected (0.01 sec)
-Records: 3  Duplicates: 0  Warnings: 0
+Query OK, 0 rows affected (0.05 sec)
 
 Query OK, 0 rows affected (0.05 sec)
 
 Query OK, 0 rows affected (0.06 sec)
+
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.07 sec)
+
+Query OK, 0 rows affected (0.07 sec)
 
 Query OK, 0 rows affected (0.02 sec)
 
 Query OK, 10 rows affected (0.01 sec)
 Records: 10  Duplicates: 0  Warnings: 0
 
-Query OK, 5 rows affected (0.00 sec)
+Query OK, 5 rows affected (0.01 sec)
 Records: 5  Duplicates: 0  Warnings: 0
 
-Query OK, 10 rows affected (0.00 sec)
+Query OK, 10 rows affected (0.01 sec)
 Records: 10  Duplicates: 0  Warnings: 0
 
 Query OK, 10 rows affected (0.02 sec)
@@ -42,7 +38,7 @@ Records: 10  Duplicates: 0  Warnings: 0
 Query OK, 12 rows affected (0.01 sec)
 Records: 12  Duplicates: 0  Warnings: 0
 
-Query OK, 10 rows affected (0.01 sec)
+Query OK, 10 rows affected (0.00 sec)
 Records: 10  Duplicates: 0  Warnings: 0
 
 +----------+-----+------+---------------------------------------------------------+
@@ -51,7 +47,7 @@ Records: 10  Duplicates: 0  Warnings: 0
 |        1 | 101 | 1BHK | A cozy one-bedroom apartment with a balcony.            |
 |        1 | 102 | 2BHK | A spacious two-bedroom apartment with a modern kitchen. |
 +----------+-----+------+---------------------------------------------------------+
-2 rows in set (0.00 sec)
+2 rows in set (0.01 sec)
 
 +----------+-----+------+---------------------------------------------------------+
 | building | num | type | description                                             |
@@ -97,17 +93,6 @@ Records: 10  Duplicates: 0  Warnings: 0
 +---------------+---------------+
 1 row in set (0.00 sec)
 
-+----------+-----------+------------+------------+--------------+---------------+
-| building | apartment | start_date | lease_type | minimum_term | rent_per_term |
-+----------+-----------+------------+------------+--------------+---------------+
-|        1 | 101       | 2025-01-01 |          1 |           12 |          1500 |
-|        2 | 201       | 2025-03-01 |          1 |           12 |          1200 |
-|        3 | 301       | 2025-05-01 |          1 |           12 |          1800 |
-|        2 | 202       | 2025-04-01 |          2 |            6 |          2500 |
-|        3 | 302       | 2025-06-01 |          2 |            3 |          1600 |
-+----------+-----------+------------+------------+--------------+---------------+
-5 rows in set (0.00 sec)
-
 +------------------+-----------+------------+------------+------------+--------------+---------------+---------------+
 | building         | apartment | start_date | end_date   | lease_type | minimum_term | days_per_term | rent_per_term |
 +------------------+-----------+------------+------------+------------+--------------+---------------+---------------+
@@ -115,7 +100,7 @@ Records: 10  Duplicates: 0  Warnings: 0
 | Glenmore Estates | 102       | 2025-02-01 | 2025-05-02 | fixed term |            3 |            30 |          2000 |
 | Britannia 800    | 201       | 2025-03-01 | 2037-02-26 | long term  |           12 |           365 |          1200 |
 +------------------+-----------+------------+------------+------------+--------------+---------------+---------------+
-3 rows in set (0.01 sec)
+3 rows in set (0.00 sec)
 
 +------------------+------------------+------------------------------+----------------+
 | building         | apartment_number | tenants                      | booking_status |
@@ -131,6 +116,6 @@ Records: 10  Duplicates: 0  Warnings: 0
 | Maple Suites     | 501              | Grace E. Taylor              | Active         |
 | Maple Suites     | 502              |                              | Inactive       |
 +------------------+------------------+------------------------------+----------------+
-10 rows in set (0.00 sec)
+10 rows in set (0.01 sec)
 
 ERROR 1644 (23000): The date of the input lease overlaps with existing lease(s) of the same apartment.
