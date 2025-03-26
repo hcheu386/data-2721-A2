@@ -255,30 +255,29 @@ where date_in_range(t.start_date, t.end_date, curdate())
 order by t.start_date, t.building, t.apartment;
 
 -- Generate a report showing booking details (apartment, guest name, booking status) for a specific date range.
-SELECT
+
+create procedure apt_status(
+    range_start date,
+    range_end date
+) select
     b.name as building,
-    a.num AS apartment_number,
-    case
-        when l.booking_status then group_concat(p.full_name order by t.ord separator ', ')
-        else ' '
-    end as tenants,
-    CASE
-        when l.booking_status then 'Active'
-        ELSE 'Inactive'
-    END AS booking_status
-from (
-    select
-        *,
-        date_overlap(l.start_date, DATE_ADD(l.start_date, INTERVAL l.minimum_term * t.days_per_term DAY), '2025-12-31', '2025-01-01') as booking_status
-    from lease l, lease_type t
-    where l.lease_type = t.id
-) l
-JOIN apartment a ON l.building = a.building AND l.apartment = a.num
-JOIN tenant t ON l.building = t.building AND l.apartment = t.apartment AND l.start_date = t.start_date
-JOIN person p ON t.tenant = p.id
-join building b on l.building = b.id
-group by l.building, l.apartment, l.start_date
-order by l.start_date, l.building, l.apartment;
+    a.num as "apartment number",
+    ifnull(group_concat(t.full_name order by t.ord separator ', '), '') as tenants,
+    if(max(l.start_date), 'Active', 'Inactive') as "booking status"
+from apartment a
+join building b on a.building = b.id
+left join (select * from lease l, lease_type t where l.lease_type = t.id) l
+    on a.building = l.building
+    and a.num = l.apartment
+    and date_overlap(l.start_date, DATE_ADD(l.start_date, INTERVAL l.minimum_term * l.days_per_term DAY), range_start, range_end)
+left JOIN (select * from tenant t, person p where t.tenant = p.id) t
+    ON l.building = t.building AND l.apartment = t.apartment AND l.start_date = t.start_date
+group by a.building, a.num
+order by a.building, a.num;
+
+create procedure cur_apt_status() call apt_status(cur_date(), cur_date());
+
+call apt_status('2025-12-31', '2025-01-01');
 
 -- Failing test for the date_overlap trigger
 INSERT INTO lease (building, apartment, start_date, lease_type, minimum_term, rent_per_term) VALUES
