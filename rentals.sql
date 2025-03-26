@@ -4,6 +4,14 @@ use rentals;
 
 
 
+create procedure list_routine(type varchar(50))
+select routine_name
+from information_schema.routines
+where routine_type = upper(type) and routine_schema = 'rentals';
+
+create procedure list_procedure() call list_routine('procedure');
+create procedure list_procedures() call list_procedure();
+
 create function date_in_range (start date, end date, _date date)
 returns bool
 deterministic
@@ -265,8 +273,6 @@ JOIN lease_type lt ON l.lease_type = lt.id
 GROUP BY b.id
 order by total_revenue desc;
 
-create procedure total_revenue() call total_rev();
-
 call total_rev();
 
 -- Find guests who have made more than 2 bookings.
@@ -321,7 +327,7 @@ left JOIN (select * from tenant t, person p where t.tenant = p.id) t
 group by a.building, a.num
 order by a.building, a.num;
 
-create procedure cur_apt_status() call apt_status(cur_date(), cur_date());
+create procedure cur_apt_status() call apt_status(curdate(), curdate());
 
 call apt_status('2025-12-31', '2025-01-01');
 
