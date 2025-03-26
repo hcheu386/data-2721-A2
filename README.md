@@ -35,8 +35,8 @@ https://github.com/hcheu386/data-2721-A2/blob/9262a428cb8b317a0ee42af61f9bafba4b
 
 # Task 3
 
-https://github.com/hcheu386/data-2721-A2/blob/3e9aa64e544de8d0634a384e9414c5f02f2f8148/rentals.sql#L193-L281
+https://github.com/hcheu386/data-2721-A2/blob/17e9035e1f06b78da3952678864a3eb93dd5921b/rentals.sql#L201-L332
 
 # Output
 
-https://github.com/hcheu386/data-2721-A2/blob/3e9aa64e544de8d0634a384e9414c5f02f2f8148/output#L1-L121
+https://github.com/hcheu386/data-2721-A2/blob/17e9035e1f06b78da3952678864a3eb93dd5921b/output#L1-L161
